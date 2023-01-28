@@ -31,7 +31,7 @@ struct SideMenu: View {
                         Label {
                             Text("Followers")
                         } icon: {
-                            Text("134")
+                            Text("134").font(.callout.bold())
                         }
                     }
 
@@ -41,19 +41,80 @@ struct SideMenu: View {
                         Label {
                             Text("Followers")
                         } icon: {
-                            Text("134")
+                            Text("134").font(.callout.bold())
                         }
                     }
 
 
+                }.foregroundColor(.primary)
+            }.padding(.horizontal).padding(.leading)
+
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack {
+                    VStack(alignment: .leading, spacing: 30) {
+
+                        TabButton(title: "Profile", image: "Pic")
+                        TabButton(title: "Lists", image: "Pic")
+                        TabButton(title: "Topics", image: "Pic")
+                        TabButton(title: "Bookmarks", image: "Pic")
+                        TabButton(title: "Spaces", image: "Pic")
+                        TabButton(title: "Notification", image: "Pic")
+                        TabButton(title: "Members", image: "Pic")
+                    }.padding()
+                        .padding(.leading)
+                        .padding(.top)
                 }
+
+
+                Divider()
+
+                VStack(alignment: .leading, spacing: 15) {
+                    Button("Setting and Privacy") {
+
+                    }
+
+                    Button("Help Center") {
+
+                    }
+                }
+                    .padding()
+                    .padding(.leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(.primary)
             }
-                .padding(.horizontal)
-                .padding(.leading)
+
+            VStack(spacing: 0) {
+                Divider()
+
+                HStack {
+                    Button {
+
+                    } label: {
+                        Image("Pic")
+                            .resizable()
+                            .renderingMode(.template)
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 22, height: 22)
+                    }
+
+                    Spacer()
+
+                    Button {
+
+                    } label: {
+                        Image("Pic")
+                            .resizable()
+                            .renderingMode(.template)
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 22, height: 22)
+                    }
+                }
+                    .padding([.horizontal, .top], 15)
+            }
         }
-            .padding(.vertical)
+            .padding(.top)
             .frame(maxWidth: .infinity, alignment: .leading)
+
             .frame(width: getRect().width - 90)
             .frame(maxHeight: .infinity)
             .background(
@@ -63,8 +124,26 @@ struct SideMenu: View {
                 .ignoresSafeArea(.container, edges: .vertical)
 
         )
-            .frame(width: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
 
+@ViewBuilder
+func TabButton(title: String, image: String) -> some View {
+    Button {
+
+    } label: {
+        HStack(spacing: 14) {
+            Image(image)
+                .resizable()
+                .renderingMode(.template)
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 22, height: 22)
+
+            Text(title)
+        }
+            .foregroundColor(.primary)
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

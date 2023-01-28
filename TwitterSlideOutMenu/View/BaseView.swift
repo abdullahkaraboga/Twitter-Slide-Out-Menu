@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct BaseView: View {
+    @State var showMenu: Bool = false
     var body: some View {
 
         NavigationView {
             HStack(spacing: 0){
+                SideMenu(showMenu: $showMenu)
                 
             }
 
