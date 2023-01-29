@@ -60,6 +60,7 @@ struct SideMenu: View {
                         TabButton(title: "Spaces", image: "Pic")
                         TabButton(title: "Notification", image: "Pic")
                         TabButton(title: "Members", image: "Pic")
+                        TabButton(title: "d", image: "Pic")
                     }.padding()
                         .padding(.leading)
                         .padding(.top)
@@ -110,6 +111,7 @@ struct SideMenu: View {
                     }
                 }
                     .padding([.horizontal, .top], 15)
+                    .foregroundColor(.primary)
             }
         }
             .padding(.top)
@@ -130,7 +132,11 @@ struct SideMenu: View {
 
 @ViewBuilder
 func TabButton(title: String, image: String) -> some View {
-    Button {
+
+    NavigationLink {
+
+        Text("\(title) View")
+            .navigationTitle(title)
 
     } label: {
         HStack(spacing: 14) {
