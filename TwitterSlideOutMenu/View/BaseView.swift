@@ -79,8 +79,16 @@ struct BaseView: View {
             }
                 .frame(width: getRect().width + sideBarWidth)
                 .offset(x: -sideBarWidth / 2)
-                .offset(x: offset)
-                
+                .offset(x: offset > 0 ? offset : 0)
+                .gesture(
+
+
+                DragGesture()
+                    .updating($gestureOffSet, body: { value, out, _ in
+                    out = value.translation.width
+                })
+                    .onEnded(onEnd(value:))
+            )
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarHidden(true)
 
@@ -97,6 +105,59 @@ struct BaseView: View {
                 lastStoredOffset = 0
             }
         }
+            .onChange(of: gestureOffSet) { newValue in
+            onChange()
+        }
+
+
+    }
+    func onChange() {
+        let sideBarWidth = getRect().width - 90
+
+        offset = (gestureOffSet != 0) ? (gestureOffSet + lastStoredOffset < sideBarWidth ? gestureOffSet + lastStoredOffset : offset) : offset
+    }
+
+    func onEnd(value: DragGesture.Value) {
+
+        let sideBarWidth = getRect().width - 90
+
+        let translation = value.translation.width
+
+        withAnimation {
+            if translation > 0 {
+
+                if translation > (sideBarWidth / 2) {
+
+                    offset = sideBarWidth
+                    showMenu = true
+                } else {
+                    if offset == sideBarWidth {
+                        return
+                    }
+                    offset = 0
+                    showMenu = false
+                }
+
+            } else {
+
+                if -translation > (sideBarWidth / 2) {
+                    offset = 0
+                    showMenu = false
+                } else {
+
+                    if offset == 0 || !showMenu {
+                        return
+                    }
+
+
+                    offset = sideBarWidth
+                    showMenu = true
+                }
+
+            }
+        }
+
+        lastStoredOffset = offset
 
 
     }
